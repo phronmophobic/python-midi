@@ -11,7 +11,6 @@ __base__ = {
     'description':'Python MIDI API',
     'author':'giles hall',
     'author_email':'ghall@csh.rit.edu',
-    'package_dir':{'midi':'src'},
     'py_modules':['midi.containers', 'midi.__init__', 'midi.events', 'midi.util', 'midi.fileio', 'midi.constants'],
     'ext_modules':[],
     'ext_package':'',
@@ -40,7 +39,7 @@ def setup_alsa(ns):
     if not alsadir:
         print("Warning: could not find asoundlib.h, not including ALSA sequencer support!")
         return
-    srclist = ["src/sequencer_alsa/sequencer_alsa.i"]
+    srclist = ["midi/sequencer_alsa/sequencer_alsa.i"]
     include_arg = "-I%s" % alsadir
     extns = {
         'libraries': ['asound'],
@@ -50,7 +49,7 @@ def setup_alsa(ns):
     ext = Extension('_sequencer_alsa', srclist, **extns)
     ns['ext_modules'].append(ext)
 
-    ns['package_dir']['midi.sequencer'] = 'src/sequencer_alsa'
+    ns['package_dir']['midi.sequencer'] = 'midi/sequencer_alsa'
     ns['py_modules'].append('midi.sequencer.__init__')
     ns['py_modules'].append('midi.sequencer.sequencer')
     ns['py_modules'].append('midi.sequencer.sequencer_alsa')
